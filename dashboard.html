@@ -25,48 +25,171 @@
          		<h3>Send us a note :)</h3>
          		<form>
          		<div class="row">
-         		<div class="col-lg-6">
-         		<div class="form-group">
-    				<textarea class="form-control" id="exampleTextarea" rows="8"></textarea>
-  				</div>
-  				</div>
+         			<div class="col-lg-6">
+         				<div class="form-group">
+    						<textarea class="form-control" id="exampleTextarea" rows="8"></textarea>
+  						</div>
+  					</div>
   				</div>
   				<button type="submit" class="btn btn-primary">Submit</button>
   				</form>
 			</div>
 
 			<div class="tab-pane" id="2a">
-          		<h3>SHOPPING here</h3>
-          		
+          		<h3>My shopping cart</h3>
+          		<div class="container">
+					<div class="row">
+						<div class="span5">
+            				<table class="table table-striped table-condensed">
+                  			<thead>
+                 				<tr>
+                      				<th>Order ID</th>
+                      				<th>OrderDate</th>
+                      				<th>EmployeeID</th>
+                      				<th>ShipVia</th>
+                      				<th>Status</th>                                          
+                  				</tr>
+              				</thead>   
+              				<!-- we need a for loop here for every thread , for a different order-->
+              				<tbody>
+                				<tr>
+                    				<td>Donna R. Folse</td>
+                    				<td>2012/05/06</td>
+                    				<td>Editor</td>
+                    				<td>land lol</td>
+                    				<td><span class="label label-success">Active</span></td>             
+                				</tr>                                   
+              				</tbody>
+            				</table>
+            			</div>
+					</div>
+				</div>
 			</div>
 
         	<div class="tab-pane" id="3a">
-          		<h3>Shopping cart here</h3>
+          		<h3>ORDERS</h3>
+          		<div class="container">
+					<div class="row">
+						<div class="span5">
+            				<table class="table table-striped table-condensed">
+                  			<thead>
+                 				<tr>
+                      				<th>Order ID</th>
+                      				<th>OrderDate</th>
+                      				<th>EmployeeID</th>
+                      				<th>ShipVia</th>  
+                      				<th>Status</th>                                        
+                  				</tr>
+              				</thead>   
+              				<!-- we need a for loop here for every thread , for a different order-->
+              				<tbody>
+                				<tr>
+                    				<td>Donna R. Folse</td>
+                    				<td>2012/05/06</td>
+                    				<td>Editor</td>
+                    				<td>land lol</td>
+                    				<td><span class="label label-warning">pending</span></td>             
+                				</tr>                                   
+              				</tbody>
+            				</table>
+            			</div>
+					</div>
+				</div>
 			</div>
           	<div class="tab-pane" id="4a">
-          		<h3>Show all orders</h3>
+          		<div class="container">
+					<div class="col-lg-6">
+      					<form class="form-horizontal">
+          					<div class="form-group">
+        						Payment ID
+        						<input type="text" class="form-control" name="" placeholder="payment ID">
+        					</div>
+        					<div class="form-group">
+        						Conf num
+        						<input type="text" class="form-control" name="" placeholder="confirmation number">
+        					</div>
+          				</form>
+          			</div>
+          		</div>
 			</div>
 			<div class="tab-pane" id="5a">
-          		<h3>reshow register form will filled up data</h3>
+          		<h3>reshow register form with filled up data "register.php"</h3>
 			</div>
 			<div class="tab-pane" id="6a">
           		<h3>redirect to logout</h3>
 			</div>
 			<div class="tab-pane" id="7a">
-          		<h3>Search for Products by: </h3>
-          		<form class="navbar-form navbar-left" role="search">
-  					<div class="form-group">
-    				<input type="text" class="form-control" placeholder="Search">
-  					</div>
-  					<button type="submit" class="btn btn-default">GO</button>
-				</form>
-				<h3>Search for Products by: </h3>
-          		<form class="navbar-form navbar-left" role="search">
-  					<div class="form-group">
-    				<input type="text" class="form-control" placeholder="Search">
-  					</div>
-  					<button type="submit" class="btn btn-default">GO</button>
-				</form>
+				<div class = "row">
+					<div class="col-lg-6">
+						<h3>Search for Products by 'product name': </h3>
+          					<form class="navbar-form navbar-left" role="search">
+  							<div class="form-group">
+    						<input type="text" class="form-control" placeholder="Search">
+  							</div>
+  							<button type="submit" class="btn btn-default">GO</button>
+						</form>
+					</div>
+				</div>
+				<div class = "row">
+					<div class="col-lg-6">
+          			<h3>Search for Products by 'supplier name': </h3>
+          				<form class="navbar-form navbar-left" role="search">
+  							<div class="form-group">
+    						<input type="text" class="form-control" placeholder="Search">
+  							</div>
+  							<button type="submit" class="btn btn-default">GO</button>
+						</form>
+					</div>
+				</div>
+				<div class = "row">
+					<div class="col-lg-6">
+						<h3>Search for Products by 'categories': </h3>
+          					<form class="navbar-form navbar-left" role="search">
+  							<div class="form-group">
+    						<input type="text" class="form-control" placeholder="Search">
+  							</div>
+  							<button type="submit" class="btn btn-default">GO</button>
+						</form>
+					</div>
+				</div>
+				<div class = "row">
+					<div class="col-lg-6">
+          				<h3>Search for Products by 'category enchancements?': </h3>
+          				<form class="navbar-form navbar-left" role="search">
+  							<div class="form-group">
+    						<input type="text" class="form-control" placeholder="Search">
+  							</div>
+  							<button type="submit" class="btn btn-default">GO</button>
+						</form>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<div class="span5">
+            				<table class="table table-striped table-condensed">
+                  			<thead>
+                 				<tr>
+                      				<th>Order ID</th>
+                      				<th>OrderDate</th>
+                      				<th>EmployeeID</th>
+                      				<th>ShipVia</th>
+                      				<th>Status</th>                                          
+                  				</tr>
+              				</thead>   
+              				<!-- we need a for loop here for every thread , for a different order-->
+              				<tbody>
+                				<tr>
+                    				<td>Donna R. Folse</td>
+                    				<td>2012/05/06</td>
+                    				<td>Editor</td>
+                    				<td>land lol</td>
+                    				<td><span class="label label-primary">BUY</span></td>             
+                				</tr>                                   
+              				</tbody>
+            				</table>
+            			</div>
+					</div>
+				</div>
 			</div>
 		</div>
   </div>
