@@ -122,11 +122,11 @@
 				<div class = "row">
 					<div class="col-lg-6">
 						<h3>Search for Products by 'product name': </h3>
-          					<form class="navbar-form navbar-left" role="search">
-  							<div class="form-group">
-    						<input type="text" class="form-control" placeholder="Search">
-  							</div>
-  							<button type="submit" class="btn btn-default">GO</button>
+            <form class="navbar-form navbar-left" role="search" method="POST" action="dashboard.php"> <!--post and action-->
+  						<div class="form-group">
+    						<input type="text" class="form-control" name="product_name" placeholder="Search"> <!-- name -->
+  						</div>
+  						<button type="submit" class="btn btn-default">GO</button>
 						</form>
 					</div>
 				</div>
