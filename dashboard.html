@@ -4,11 +4,11 @@
     <title>dashboard</title>
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
 </head>
-
 <body>
-	<div class="container"><h1>Northwind Web Application</h1></div>
+
+	<div class="container"><h1>Northwind Web Application <?php echo $_SESSION["globalusername"];?></h1></div>
 		<div id="exTab1" class="container">	
 			<ul  class="nav nav-pills">
 				<li class="active"><a  href="#1a" data-toggle="tab">Home</a></li>
@@ -98,25 +98,36 @@
 			</div>
           	<div class="tab-pane" id="4a">
           		<div class="container">
-					<div class="col-lg-6">
+          		    <hr>
       					<form class="form-horizontal">
           					<div class="form-group">
-        						Payment ID
+          						<div class="col-md-5">
+        						<strong>Payment ID</strong>
         						<input type="text" class="form-control" name="" placeholder="payment ID">
+        						</div>
         					</div>
         					<div class="form-group">
-        						Conf num
+        						<div class="col-md-5">
+        						<strong>Confirmation Number</strong>
         						<input type="text" class="form-control" name="" placeholder="confirmation number">
+        						</div>
         					</div>
+        				<button type="submit" class="btn btn-primary">ADD</button>
           				</form>
-          			</div>
+          			
           		</div>
 			</div>
 			<div class="tab-pane" id="5a">
-          		<h3>reshow register form with filled up data "register.php"</h3>
+          		<h3>Are you sure you want to edit your profile?</h3>
+          		<a href="register.html" class="btn btn-danger">
+          			<span class="glyphicon glyphicon-pencil"></span> edit info
+          		</a>
 			</div>
 			<div class="tab-pane" id="6a">
-          		<h3>redirect to logout</h3>
+          		<h3>Are you sure you want to logout?</h3>
+          		<a href="logout.php" class="btn btn-danger">
+          			<span class="glyphicon glyphicon-log-out"></span> Logout
+          		</a>
 			</div>
 			<div class="tab-pane" id="7a">
 				<div class = "row">
@@ -183,7 +194,7 @@
                     				<td>2012/05/06</td>
                     				<td>Editor</td>
                     				<td>land lol</td>
-                    				<td><span class="label label-primary">BUY</span></td>             
+                    				<td><button type="button" class="btn btn-primary">BUY</button></td>             
                 				</tr>                                   
               				</tbody>
             				</table>

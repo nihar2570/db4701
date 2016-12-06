@@ -9,7 +9,15 @@ if(mysqli_num_rows($result)!=0)
 {
 	echo "yes Email: ";
 	while($row = mysqli_fetch_array($result)) {
+    // print email
 	echo $row['email'];
+	//sets some equivalent to global variiables
+	$_SESSION["globalusername"] = $username;
+
+	//go to dashboard
+	header("Location:dashboard.html");
+    exit();
+
 	}
 }else{
 	echo "no such user exists";
