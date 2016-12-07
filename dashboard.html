@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<div class="container"><h1>Northwind Web Application <?php echo $_SESSION["globalusername"];?></h1></div>
+	<div class="container"><h1>Northwind Web Application</h1></div>
 		<div id="exTab1" class="container">	
 			<ul  class="nav nav-pills">
 				<li class="active"><a  href="#1a" data-toggle="tab">Home</a></li>
@@ -144,9 +144,9 @@
 				<div class = "row">
 					<div class="col-lg-6">
           			<h3>Search for Products by 'supplier name': </h3>
-          				<form class="navbar-form navbar-left" role="search">
+          		  <form class="navbar-form navbar-left" role="search" method="POST" action="dashboard.php">
   							<div class="form-group">
-    						<input type="text" class="form-control" placeholder="Search">
+    						<input type="text" class="form-control" name="supplier_name" placeholder="Search">
   							</div>
   							<button type="submit" class="btn btn-default">GO</button>
 						</form>
@@ -155,9 +155,9 @@
 				<div class = "row">
 					<div class="col-lg-6">
 						<h3>Search for Products by 'categories': </h3>
-          					<form class="navbar-form navbar-left" role="search">
+          				<form class="navbar-form navbar-left" role="search" method="POST" action="dashboard.php">
   							<div class="form-group">
-    						<input type="text" class="form-control" placeholder="Search">
+    						<input type="text" class="form-control" name="cat_name" placeholder="Search">
   							</div>
   							<button type="submit" class="btn btn-default">GO</button>
 						</form>
@@ -166,9 +166,9 @@
 				<div class = "row">
 					<div class="col-lg-6">
           				<h3>Search for Products by 'category enchancements?': </h3>
-          				<form class="navbar-form navbar-left" role="search">
+          				<form class="navbar-form navbar-left" role="search" method="POST" action="dashboard.php">
   							<div class="form-group">
-    						<input type="text" class="form-control" placeholder="Search">
+    						<input type="text" class="form-control" name="cat_name" placeholder="Search">
   							</div>
   							<button type="submit" class="btn btn-default">GO</button>
 						</form>
