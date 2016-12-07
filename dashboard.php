@@ -1,5 +1,4 @@
 <?php
-require("login.php");
 require("config.php");
 
 $product_name = ($_POST['product_name']);
@@ -16,6 +15,8 @@ if(mysqli_num_rows($result)!=0)
 		printf ($row['ProductName']);
 		printf ("Product blah ");
 		printf ($row['ProductName']);
+		printf ($_SESSION["username"]);
+
 	}
 }else{
 	echo " no such product exists";
