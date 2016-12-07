@@ -9,14 +9,15 @@ $result = mysqli_query($con,"SELECT * FROM Customers WHERE ContactName='$usernam
 //$result = mysqli_query($con,"SELECT * FROM users WHERE name='$username' AND password='$password'");
 if(mysqli_num_rows($result)!=0)
 {
-	/*echo " --Company: ";
-	while($row = mysqli_fetch_array($result)) {
-	echo $row['CompanyName'];
-	}*/
+	//sets some equivalent to global variiables
 	$_SESSION["username"] = $username;
-	header("Location: http://localhost/login/db4701/dashboard.html");
-	exit();
-}else{
+
+	//go to dashboard
+	header("Location:dashboard.html");
+    exit();
+
+	}
+else{
 	echo " no such user exists";
 }
 mysqli_free_result($result);
