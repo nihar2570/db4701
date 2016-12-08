@@ -219,7 +219,7 @@ require("config.php");
 
 			<div class="tab-pane" id="5a">
           		<h3>Are you sure you want to edit your profile?</h3>
-          		<a href="register.html" class="btn btn-danger">
+          		<a href="edit_acc.php" class="btn btn-danger">
           			<span class="glyphicon glyphicon-pencil"></span> edit info
           		</a>
 			</div>
