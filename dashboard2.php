@@ -1,4 +1,7 @@
 <!DOCTYPE HTML>
+<?php
+require("config.php");
+?>
 <html>
 <head>
     <title>dashboard</title>
@@ -83,31 +86,47 @@
         	<div class="tab-pane" id="3a">
           		<h3>ORDERS</h3>
           		<div class="container">
-					<div class="row">
-						<div class="span5">
-            				<table class="table table-striped table-condensed">
-                  			<thead>
-                 				<tr>
-                      				<th>Order ID</th>
-                      				<th>OrderDate</th>
-                      				<th>EmployeeID</th>
-                      				<th>ShipVia</th>  
-                      				<th>Status</th>                                        
-                  				</tr>
-              				</thead>   
-              				<!-- we need a for loop here for every thread , for a different order-->
-              				<tbody>
-                				<tr>
-                    				<td>Donna R. Folse</td>
-                    				<td>2012/05/06</td>
-                    				<td>Editor</td>
-                    				<td>land lol</td>
-                    				<td><span class="label label-warning">pending</span></td>             
-                				</tr>                                   
-              				</tbody>
-            				</table>
-            			</div>
-					</div>
+              <div class="row">
+                  <div class="span5">
+                      <table class="table table-striped">
+                          <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Product Name</th>
+                                <th>Unit Price</th>
+                                <th>Quantity Ordered</th>
+                                <th>Status</th>                                          
+                            </tr>
+                          </thead>   
+                            <!-- we need a for loop here for every thread , for a different order-->
+                            <?php
+                            $qry = mysqli_query($con,"SELECT * FROM northwind.Orders JOIN `order details` ON Orders.orderID = `order details`.orderID JOIN products ON products.productID = `order details`.productID where orders.CustomerID = '{$_SESSION['username']}';");
+                              if(mysqli_num_rows($qry)!=0)
+                                {
+                                  while($row = $qry->fetch_assoc()) {
+                                    $_SESSION["SC_order_id"] = $row['OrderID'];
+                                    $_SESSION["SC_product_name"] = $row['ProductName'];
+                                    $_SESSION["SC_price"] = $row['UnitPrice'];
+                                    $_SESSION["SC_quantity"] = $row['Quantity'];
+                                    echo"
+                                        <tbody>
+                                          <tr>
+                                            <td>".$row['OrderID']."</td>
+                                            <td>".$row['ProductName']."</td>
+                                            <td>".$row['UnitPrice']."</td>
+                                            <td>".$row['Quantity']."</td>
+                                            <td><button class=\"label label-success\">Active</button></td>             
+                                          </tr>                                   
+                                        </tbody>";
+                                  }
+                                }else{
+                                  echo "no active orders";
+                                  exit();
+                                }
+                            ?>
+                        </table>
+                        </div>
+                    </div>
 				</div>
 			</div>
           	<div class="tab-pane" id="4a">
@@ -217,50 +236,87 @@
           <div class = "row">
           <div class="col-md-6">
             <h3>Search for Products by 'product name': </h3>
-                    <form class="navbar-form navbar-left" role="search" method="POST" action="dashboard.php">
-                <div class="form-group">
-                <input type="text" class="form-control" name="buy_product_name" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">GO</button>
-            </form>
+                <form class="navbar-form navbar-left" role="search" method="POST" action="dashboard.php">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="buy_product_name" placeholder="Search">
+                  </div>
+                  <button type="submit" class="btn btn-default">GO</button>
+                </form>
           </div>
           <div class="col-md-6">
-                <h3>Search for Products by 'supplier name': </h3>
-                  <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">GO</button>
-            </form>
+              <h3>Search for Products by 'supplier name': </h3>
+              <form class="navbar-form navbar-left" role="search" method="POST" action="dashboard.php">
+              <div class="form-group">
+                <input type="text" class="form-control" name="buy_supplier_name" placeholder="Search">
+              </div>
+              <button type="submit" class="btn btn-default">GO</button>
+              </form>
           </div>
-        </div>
+          </div>
         <div class = "row">
           <div class="col-md-6">
             <h3>Search for Products by 'categories': </h3> <!-- this is for the buy tab-->
-                 <form class="navbar-form navbar-left" role="search" method="POST" action="dashboard.php">
-                <div class="form-group">
-                <input type="text" class="form-control" name="buy_cat_name" placeholder="Search">
-                </div>
+                <form class="navbar-form navbar-left" role="search" method="POST" action="dashboard.php">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="buy_cat_name" placeholder="Search">
+                  </div>
                 <button type="submit" class="btn btn-default">GO</button>
-            </form>
+                </form>
           </div>
           <div class="col-md-6">
               <h3>Search for Products by 'category enchancements?': </h3>
-                  <form class="navbar-form navbar-left" role="search">
+                  <form class="navbar-form navbar-left" role="search" method="POST" action="dashboard.php">
                      <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Search">
+                      <input type="text" class="form-control" name="buy_cat_name" placeholder="Search">
                      </div>
                      <button type="submit" class="btn btn-default">GO</button>
                   </form>
           </div>
         </div>
-        <div class="row">
-            <div class="span5">
-              <body>
-              Hello <%$_SESSION["username"]%>
-              </body> 
-            </div>
-          </div>
+              <div class="row">
+                  <div class="span5">
+                      <table class="table table-striped">
+                          add link to order status and content of each order
+                          <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Quantity Per Unit</th>
+                                <th>Price</th>
+                                <th>Units In Stock</th>
+                                <th>Status</th>                                          
+                            </tr>
+                          </thead>   
+                            <!-- we need a for loop here for every thread , for a different order-->
+                            <?php
+                            $qry = mysqli_query($con,"SELECT * FROM northwind.Products JOIN northwind.shoppingcart ON Products.productID = shoppingcart.productID;");
+                              if(mysqli_num_rows($qry)!=0)
+                                {
+                                  while($row = $qry->fetch_assoc()) {
+                                  if($_SESSION['username'] == $row['cusID']){
+                                    $_SESSION["SC_product_name"] = $row['ProductName'];
+                                    $_SESSION["SC_quantity"] = $row['QuantityPerUnit'];
+                                    $_SESSION["SC_price"] = $row['UnitPrice'];
+                                    $_SESSION["SC_stock"] = $row['UnitsInStock'];
+                                    echo"
+                                        <tbody>
+                                          <tr>
+                                            <td>".$row['ProductName']."</td>
+                                            <td>".$row['QuantityPerUnit']."</td>
+                                            <td>".$row['UnitPrice']."</td>
+                                            <td>".$row['UnitsInStock']."</td>
+                                            <td><button class=\"label label-success\">Active</button></td>             
+                                          </tr>                                   
+                                        </tbody>";
+                                  }
+                                  }
+                                }else{
+                                  echo "no active orders";
+                                  exit();
+                                }
+                            ?>
+                        </table>
+                        </div>
+                    </div>
       </div>
 
 			<div class="tab-pane" id="7a">
