@@ -44,41 +44,52 @@ require("config.php");
           		<h3>My shopping cart</h3>
           		<div class="container">
 					<div class="row">
-						<div class="span5">
-            				<table class="table table-striped table-condensed">
-                  			<thead>
-                 				<tr>
-                      				<th>Order ID</th>
-                      				<th>OrderDate</th>
-                      				<th>EmployeeID</th>
-                      				<th>ShipVia</th>
-                      				<th>Status</th>                                          
-                  				</tr>
-              				</thead>   
-              				<!-- we need a for loop here for every thread , for a different order-->
-              				<tbody>
-                				<tr>
-                    				<td>blah</td>
-                    				<td>2012/05/06</td>
-                    				<td>Editor</td>
-                    				<td>land lol</td>
-                    				<td><span class="label label-success">Active</span></td>             
-                				</tr>                                   
-              				</tbody>
-            				</table>
-            			</div>
-            <form class="navbar-form navbar-left" role="search" method="POST" action="shoppingcart.php"> <!--post and action-->
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search"> <!-- name -->
-              </div>
-              <button type="submit" class="btn btn-default">View Cart</button>
-            </form>
-            <form class="navbar-form navbar-left" role="search" method="POST" action="payment.php"> <!--post and action-->
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search"> <!-- name -->
-              </div>
-              <button type="submit" class="btn btn-default">Pay</button>
-            </form>
+                  <div class="span5">
+                      <table class="table table-striped">
+                          <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Quantity Per Unit</th>
+                                <th>Price</th>
+                                <th>Units In Stock</th>
+                                <th>Status</th>                                          
+                            </tr>
+                          </thead>   
+                            <!-- we need a for loop here for every thread , for a different order-->
+                            <?php
+                            $qry = mysqli_query($con,"SELECT * FROM northwind.Products JOIN northwind.shoppingcart ON Products.productID = shoppingcart.productID;");
+                              if(mysqli_num_rows($qry)!=0)
+                                {
+                                  while($row = $qry->fetch_assoc()) {
+                                  if($_SESSION['username'] == $row['cusID']){
+                                    $_SESSION['SC_product_name'] = $row['ProductName'];
+                                    $_SESSION["SC_quantity"] = $row['QuantityPerUnit'];
+                                    $_SESSION["SC_price"] = $row['UnitPrice'];
+                                    $_SESSION["SC_stock"] = $row['UnitsInStock'];
+                                    echo"
+                                        <tbody>
+                                          <tr>
+                                            <td>".$row['ProductName']."</td>
+                                            <td>".$row['QuantityPerUnit']."</td>
+                                            <td>".$row['UnitPrice']."</td>
+                                            <td>".$row['UnitsInStock']."</td>
+                                            <form action=\"dashboard2.php\" method=\"POST\">
+                                            <td><button class=\"label label-success\" name=\"blag\">Active</button></td>  
+                                            </form>           
+                                          </tr>                                   
+                                        </tbody>";
+                                  }
+                                  }
+                                }else{
+                                  echo "no active orders";
+                                  exit();
+                                }
+                            ?>
+                        </table>
+                        </div>                     
+                          <form action="payment.php" method="POST">
+                          <button name="pay_all" type="submit" value="pay_all">Pay for shopping cart</button>
+                          </form>
 					</div>
 				</div>
 			</div>
@@ -130,64 +141,41 @@ require("config.php");
 				</div>
 			</div>
           	<div class="tab-pane" id="4a">
-          		<div class="container">
-          		<hr>
-                <div class = "row">
-                <div class = "col-md-6">
-      					<form class="form-horizontal">
-                    <h3>Credit Card</h3>
-          					<div class="form-group">
-          						<div class="col-md-6">
-        						    <strong>Payment ID</strong>
-        						    <input type="text" class="form-control" name="" placeholder="payment ID">
-        						  </div>
-        					  </div>
-        					  <div class="form-group">
-        						  <div class="col-md-6">
-        						    <strong>Confirmation Number</strong>
-        						    <input type="text" class="form-control" name="" placeholder="confirmation number">
-        						  </div>
-        					  </div>
-        				  <button type="submit" class="btn btn-primary">ADD</button>
-          			</form>
-                </div>
-                </div>
-                <hr>
-
+<div class="container">
                 <div class = "row">
                 <div class = "col-md-4">
-                <form class="form-horizontal">
-                    <h3>PayPal</h3>
+                <form class="form-horizontal" role="search" method="POST" action="payment_var.php">
+                    <h3>Andriod Pay</h3>
                     <div class="form-group">
                       <div class="col-md-9">
-                        <strong>Payment ID</strong>
-                        <input type="text" class="form-control" name="" placeholder="payment ID">
+                        <strong>Andriod Pay</strong>
+                        <input type="text" class="form-control" name="andriod_pay" placeholder="payment ID">
                       </div>
                     </div>
                     <div class="form-group">
                       <div class="col-md-9">
                         <strong>Confirmation Number</strong>
-                        <input type="text" class="form-control" name="" placeholder="confirmation number">
+                        <input type="text" class="form-control" name="andriod_conf" placeholder="confirmation number">
                       </div>
                     </div>
                   <button type="submit" class="btn btn-primary">ADD</button>
                 </form>
                 </div>
-          			<!--row ends-->
+                <!--row ends-->
                 
                 <div class = "col-md-4">
-                <form class="form-horizontal">
+                <form class="form-horizontal" role="search" method="POST" action="payment_var.php">
                     <h3>Apple Pay</h3>
                     <div class="form-group">
                       <div class="col-md-9">
                         <strong>Payment ID</strong>
-                        <input type="text" class="form-control" name="" placeholder="payment ID">
+                        <input type="text" class="form-control" name="apple_pay" placeholder="payment ID">
                       </div>
                     </div>
                     <div class="form-group">
                       <div class="col-md-9">
                         <strong>Confirmation Number</strong>
-                        <input type="text" class="form-control" name="" placeholder="confirmation number">
+                        <input type="text" class="form-control" name="apple_conf" placeholder="confirmation number">
                       </div>
                     </div>
                   <button type="submit" class="btn btn-primary">ADD</button>
@@ -195,26 +183,85 @@ require("config.php");
                 </div><!--row ends-->
 
                 <div class = "col-md-4">
-                <form class="form-horizontal">
-                    <h3>Google Pay</h3>
+                <form class="form-horizontal" role="search" method="POST" action="payment_var.php">
+                    <h3>Credit Card</h3>
                     <div class="form-group">
                       <div class="col-md-9">
                         <strong>Payment ID</strong>
-                        <input type="text" class="form-control" name="" placeholder="payment ID">
+                        <input type="text" class="form-control" name="credit_pay" placeholder="payment ID">
                       </div>
                     </div>
                     <div class="form-group">
                       <div class="col-md-9">
                         <strong>Confirmation Number</strong>
-                        <input type="text" class="form-control" name="" placeholder="confirmation number">
+                        <input type="text" class="form-control" name="credit_conf" placeholder="confirmation number">
                       </div>
                     </div>
                   <button type="submit" class="btn btn-primary">ADD</button>
                 </form>
                 </div>
                 </div><!--row ends-->
-                <hr>
-          		</div>
+
+                <div class = "row">
+                <div class = "col-md-4">
+                <form class="form-horizontal" role="search" method="POST" action="payment_var.php">
+                    <h3>Debit Card</h3>
+                    <div class="form-group">
+                      <div class="col-md-9">
+                        <strong>Payment ID</strong>
+                        <input type="text" class="form-control" name="debit_pay" placeholder="payment ID">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-md-9">
+                        <strong>Confirmation Number</strong>
+                        <input type="text" class="form-control" name="debit_conf" placeholder="confirmation number">
+                      </div>
+                    </div>
+                  <button type="submit" class="btn btn-primary">ADD</button>
+                </form>
+                </div>
+                <!--row ends-->
+                
+                <div class = "col-md-4">
+                <form class="form-horizontal" role="search" method="POST" action="payment_var.php">
+                    <h3>PayPal</h3>
+                    <div class="form-group">
+                      <div class="col-md-9">
+                        <strong>Payment ID</strong>
+                        <input type="text" class="form-control" name="paypal_pay" placeholder="payment ID">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-md-9">
+                        <strong>Confirmation Number</strong>
+                        <input type="text" class="form-control" name="paypal_conf" placeholder="confirmation number">
+                      </div>
+                    </div>
+                  <button type="submit" class="btn btn-primary">ADD</button>
+                </form>
+                </div><!--row ends-->
+
+                <div class = "col-md-4">
+                <form class="form-horizontal" role="search" method="POST" action="payment_var.php">
+                    <h3>Bank Account</h3>
+                    <div class="form-group">
+                      <div class="col-md-9">
+                        <strong>Payment ID</strong>
+                        <input type="text" class="form-control" name="bank_pay" placeholder="payment ID">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-md-9">
+                        <strong>Confirmation Number</strong>
+                        <input type="text" class="form-control" name="bank_conf" placeholder="confirmation number">
+                      </div>
+                    </div>
+                  <button type="submit" class="btn btn-primary">ADD</button>
+                </form>
+                </div>
+                </div><!--row ends-->
+              </div>
 			</div>
 
 			<div class="tab-pane" id="5a">
@@ -292,7 +339,7 @@ require("config.php");
                                 {
                                   while($row = $qry->fetch_assoc()) {
                                   if($_SESSION['username'] == $row['cusID']){
-                                    $_SESSION["SC_product_name"] = $row['ProductName'];
+                                    $_SESSION['SC_product_name'] = $row['ProductName'];
                                     $_SESSION["SC_quantity"] = $row['QuantityPerUnit'];
                                     $_SESSION["SC_price"] = $row['UnitPrice'];
                                     $_SESSION["SC_stock"] = $row['UnitsInStock'];
@@ -303,7 +350,9 @@ require("config.php");
                                             <td>".$row['QuantityPerUnit']."</td>
                                             <td>".$row['UnitPrice']."</td>
                                             <td>".$row['UnitsInStock']."</td>
-                                            <td><button class=\"label label-success\">Active</button></td>             
+                                            <form action=\"dashboard2.php\" method=\"POST\">
+                                            <td><button class=\"label label-success\" name=\"blag\">Active</button></td>  
+                                            </form>           
                                           </tr>                                   
                                         </tbody>";
                                   }
