@@ -156,6 +156,13 @@ header("Location:dashboard2.php");
 exit();
 }
 
+if (!empty($_POST['clear_all'])){
+mysqli_query($con,"DELETE FROM shoppingcart where cusID = '{$_SESSION['username']}';");
+
+header("Location:dashboard2.php");
+exit();
+}
+
 mysqli_close($con);
 ?>
 
