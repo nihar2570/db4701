@@ -1,4 +1,7 @@
 <!DOCTYPE HTML>
+<?php
+require("config.php");
+?>
 <html>
 <head>
     <title>dashboard</title>
@@ -8,7 +11,7 @@
 </head>
 <body>
 
-    <div class="container"><h1>Northwind Web Application<h3>(Employee/Admin)</h3></h1>
+    <div class="container"><h1>Northwind Web Application<h3>(Employee/Admin)<?php echo $_SESSION["LastName"]?></h3></h1>
         <div id="exTab1" class="container"> 
             <ul  class="nav nav-pills">
                 <li class="active"><a href="#1a" data-toggle="tab">Home</a></li>
@@ -33,6 +36,7 @@
                             <thead>
                                 <tr>
                                     <th>Order ID</th>
+                                    <th>Customer ID</th>
                                     <th>OrderDate</th>
                                     <th>EmployeeID</th>
                                     <th>ShipVia</th>
@@ -40,15 +44,33 @@
                                 </tr>
                             </thead>   
                             <!-- we need a for loop here for every thread , for a different order-->
-                            <tbody>
-                                <tr>
-                                    <td>Donna R. Folse</td>
-                                    <td>2012/05/06</td>
-                                    <td>Editor</td>
-                                    <td>land lol</td>
-                                    <td><span class="label label-success">Active</span></td>             
-                                </tr>                                   
-                            </tbody>
+                            <?php
+                            $qry = mysqli_query($con,"SELECT * FROM orders");
+                              if(mysqli_num_rows($qry)!=0)
+                                {
+                                  while($row = $qry->fetch_assoc()) {
+                                    $_SESSION["OrderID"] = $row['OrderID'];
+                                    $_SESSION["CustomerID"] = $row['CustomerID'];
+                                    $_SESSION["OrderDate"] = $row['OrderDate'];
+                                    $_SESSION["EmployeeID"] = $row['EmployeeID'];
+                                    $_SESSION["ShipVia"] = $row['ShipVia'];
+                                    echo"
+                                        <tbody>
+                                          <tr>
+                                            <td>".$row['OrderID']."</td>
+                                            <td>".$row['CustomerID']."</td>
+                                            <td>".$row['OrderDate']."</td>
+                                            <td>".$row['EmployeeID']."</td>
+                                            <td>".$row['ShipVia']."</td>
+                                            <td><button class=\"label label-success\">Active</button></td>             
+                                          </tr>                                   
+                                        </tbody>";
+                                  }
+                                }else{
+                                  echo "no active orders";
+                                  exit();
+                                }
+                            ?>
                             </table>
                         </div>
                     </div>
