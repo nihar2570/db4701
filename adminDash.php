@@ -14,7 +14,7 @@ require("config.php");
     <div class="container"><h1>Northwind Web Application<h3>(Employee/Admin)<?php echo $_SESSION["LastName"]?></h3></h1>
         <div id="exTab1" class="container"> 
             <ul  class="nav nav-pills">
-                <li class="active"><a href="#1a" data-toggle="tab">Home</a></li>
+                <li class = "active"><a href="#1a" data-toggle="tab">Home</a></li>
                 <li><a href="#2a" data-toggle="tab">Product Mangement</a></li>
                 <li><a href="#3a" data-toggle="tab">Customers</a></li>
                 <li><a href="#4a" data-toggle="tab">Employee Management</a></li>
@@ -36,32 +36,27 @@ require("config.php");
                             <thead>
                                 <tr>
                                     <th>Order ID</th>
-                                    <th>Customer ID</th>
-                                    <th>OrderDate</th>
-                                    <th>EmployeeID</th>
-                                    <th>ShipVia</th>
+                                    <th>Product ID</th>
+                                    <th>Unit Price</th>
+                                    <th>Quantity</th>
+                                    <th>Discount</th>
                                     <th>Status</th>                                          
                                 </tr>
                             </thead>   
                             <!-- we need a for loop here for every thread , for a different order-->
                             <?php
-                            $qry = mysqli_query($con,"SELECT * FROM orders");
+                            $qry = mysqli_query($con,"SELECT * FROM `order details`");
                               if(mysqli_num_rows($qry)!=0)
                                 {
                                   while($row = $qry->fetch_assoc()) {
-                                    $_SESSION["OrderID"] = $row['OrderID'];
-                                    $_SESSION["CustomerID"] = $row['CustomerID'];
-                                    $_SESSION["OrderDate"] = $row['OrderDate'];
-                                    $_SESSION["EmployeeID"] = $row['EmployeeID'];
-                                    $_SESSION["ShipVia"] = $row['ShipVia'];
                                     echo"
                                         <tbody>
                                           <tr>
                                             <td>".$row['OrderID']."</td>
-                                            <td>".$row['CustomerID']."</td>
-                                            <td>".$row['OrderDate']."</td>
-                                            <td>".$row['EmployeeID']."</td>
-                                            <td>".$row['ShipVia']."</td>
+                                            <td>".$row['ProductID']."</td>
+                                            <td>".$row['UnitPrice']."</td>
+                                            <td>".$row['Quantity']."</td>
+                                            <td>".$row['Discount']."</td>
                                             <td><button class=\"label label-success\">Active</button></td>             
                                           </tr>                                   
                                         </tbody>";
@@ -81,196 +76,230 @@ require("config.php");
                 <div class = "row">
                   <div class="col-lg-6">
                     <h3>Search for Product: </h3>
-                    <form class="navbar-form navbar-left" role="search">
-                      <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                      </div>
-                      <button type="submit" class="btn btn-default">GO</button>
-                      <hr>
-                      Search Result:
-                      <hr>
-                      Add to Products:
-                      Ask to add required boxes
-                      <hr>
-                     </form>
+                      <form class="navbar-form navbar-left" method = "POST" role="search" action="pman.php">
+                        <div class="form-group">
+                          <input type="text" class="form-control" name="productSearch" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">GO</button>
+                      </form>    
                   </div>
                 </div>
+                <hr>
             </div>    
 
             <div class="tab-pane" id="3a">
-              <h3>Search for Customer by: </h3>
-              <div class = "row">
-                <div class="col-md-5">
-                    <form class="form">
+              <h3>Customer Info: </h3>
+              <form class="form" method= "POST" action="cman.php">
+                  <div class = "row">
+                    <div class="col-md-5">
                       <div class="form-group">
-                        <label for="">First Name:</label>
-                        <input type="text" class="form-control" id="">
+                        <label for="">Customer ID</label>
+                        <input type="text" class="form-control" id="" name="c1">
                       </div>
-                </div>
-                <div class="col-md-5">      
+                    </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-5">        
                       <div class="form-group">
-                        <label for="">Last Name:</label>
-                        <input type="text" class="form-control" id="">
+                        <label for="">Company Name</label>
+                        <input type="text" class="form-control" id="" name="c2">
                       </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-5">        
+                      </div>
+                      <div class="col-md-5">      
                       <div class="form-group">
-                        <label for="">Email</label>
-                        <input type="text" class="form-control" id="">
+                        <label for="">Contact Name</label>
+                        <input type="text" class="form-control" id="" name="c3">
                       </div>
-                </div>
-                <div class="col-md-5">      
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-5">         
                       <div class="form-group">
-                        <label for="">Company Name:</label>
-                        <input type="text" class="form-control" id="">
+                        <label for="">Contact Title</label>
+                        <input type="text" class="form-control" id="" name="c4">
                       </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-5">         
-                      <div class="form-group">
-                        <label for="">Phone</label>
-                        <input type="text" class="form-control" id="">
                       </div>
-                </div>
-                <div class="col-md-5">      
-                      <div class="form-group">
-                        <label for="">Fax</label>
-                        <input type="text" class="form-control" id="">
-                      </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-5">         
+                      <div class="col-md-5">      
                       <div class="form-group">
                         <label for="">Address</label>
-                        <input type="text" class="form-control" id="">
+                        <input type="text" class="form-control" id="" name="c5">
                       </div>
-                </div>
-                <div class="col-md-3">
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-5">         
                       <div class="form-group">
                         <label for="">City</label>
-                        <input type="text" class="form-control" id="">
+                        <input type="text" class="form-control" id="" name="c6">
                       </div>
-                </div>
-                <div class="col-md-2">      
+                      </div>
+                      <div class="col-md-3">
                       <div class="form-group">
-                        <label for="">State</label>
-                        <input type="text" class="form-control" id="">
+                        <label for="">Region</label>
+                        <input type="text" class="form-control" id="" name="c7">
                       </div>
-                </div>      
-                </div>
-              <div class="row">
-                <div class="col-md-5">         
-                      <div class="form-group">
-                        <label for="">Country</label>
-                        <input type="text" class="form-control" id="">
                       </div>
-                </div>
-                <div class="col-md-5">      
+                      <div class="col-md-2">      
                       <div class="form-group">
                         <label for="">Postal Code</label>
-                        <input type="text" class="form-control" id="">
+                        <input type="text" class="form-control" id="" name="c8">
                       </div>
+                      </div>      
+                  </div>
+                <div class="row">
+                    <div class="col-md-5">         
+                      <div class="form-group">
+                        <label for="">Country</label>
+                        <input type="text" class="form-control" id="" name="c9">
+                      </div>
+                    </div>
+                    <div class="col-md-5">      
+                      <div class="form-group">
+                        <label for="">phone</label>
+                        <input type="text" class="form-control" id="" name="c10">
+                      </div>
+                    </div>
+                    <div class="col-md-5">      
+                      <div class="form-group">
+                        <label for="">fax</label>
+                        <input type="text" class="form-control" id="" name="c11">
+                      </div>
+                    </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-md-10">
-                  <button type="submit" class="btn btn-primary pull-right">Search</button>
-                </div>  
-              </div>            
+                <div class="row">
+                  <div class="col-md-10">
+                    <button type="submit" class="btn btn-primary pull-right">Search</button>
+                  </div>  
+                </div> 
+              </form> 
               <hr>
-                Search Result:
-              <hr>
-              </form>
             </div>
 
+
             <div class="tab-pane" id="4a">
-            <h3>Add New Emplyee:</h3>
-              <div class = "row">
-                <div class="col-md-5">
-                    <form class="form">
+              <h3>Add New Employee:</h3>
+              <hr>
+                <form class="form" method= "POST" action="eman.php">
+                    <div class="col-md-5">      
                       <div class="form-group">
-                        <label for="">First Name:</label>
-                        <input type="text" class="form-control" id="">
+                        <label for="">EmployeeID</label>
+                        <input type="text" class="form-control" id="" name="c1">
                       </div>
-                </div>
-                <div class="col-md-5">      
+                    </div>
+                    <div class="col-md-5">      
                       <div class="form-group">
-                        <label for="">Last Name:</label>
-                        <input type="text" class="form-control" id="">
+                        <label for="">Last Name</label>
+                        <input type="text" class="form-control" id="" name="c2">
                       </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-5">        
+                    </div>
+                    <div class="col-md-5">      
                       <div class="form-group">
-                        <label for="">Email</label>
-                        <input type="text" class="form-control" id="">
+                        <label for="">First Name</label>
+                        <input type="text" class="form-control" id="" name="c3">
                       </div>
-                </div>
-                <div class="col-md-5">      
+                    </div>
+                    <div class="col-md-5">      
                       <div class="form-group">
-                        <label for="">Company Name:</label>
-                        <input type="text" class="form-control" id="">
+                        <label for="">Title</label>
+                        <input type="text" class="form-control" id="" name="c4">
                       </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-5">         
+                    </div>
+                    <div class="col-md-5">      
                       <div class="form-group">
-                        <label for="">Phone</label>
-                        <input type="text" class="form-control" id="">
+                        <label for="">TitleOfCourtesy</label>
+                        <input type="text" class="form-control" id="" name="c5">
                       </div>
-                </div>
-                <div class="col-md-5">      
+                    </div>
+                    <div class="col-md-5">      
                       <div class="form-group">
-                        <label for="">Fax</label>
-                        <input type="text" class="form-control" id="">
+                        <label for="">Birth Date</label>
+                        <input type="text" class="form-control" id="" name="c6">
                       </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-5">         
+                    </div>
+                    <div class="col-md-5">      
+                      <div class="form-group">
+                        <label for="">Hire Date</label>
+                        <input type="text" class="form-control" id="" name="c7">
+                      </div>
+                    </div>
+                    <div class="col-md-5">      
                       <div class="form-group">
                         <label for="">Address</label>
-                        <input type="text" class="form-control" id="">
+                        <input type="text" class="form-control" id="" name="c8">
                       </div>
-                </div>
-                <div class="col-md-3">
+                    </div>
+                    <div class="col-md-5">      
                       <div class="form-group">
                         <label for="">City</label>
-                        <input type="text" class="form-control" id="">
+                        <input type="text" class="form-control" id="" name="c9">
                       </div>
-                </div>
-                <div class="col-md-2">      
+                    </div>
+                    <div class="col-md-5">      
                       <div class="form-group">
-                        <label for="">State</label>
-                        <input type="text" class="form-control" id="">
+                        <label for="">Region</label>
+                        <input type="text" class="form-control" id="" name="c10">
                       </div>
-                </div>      
-                </div>
-              <div class="row">
-                <div class="col-md-5">         
+                    </div>
+                    <div class="col-md-5">      
+                      <div class="form-group">
+                        <label for="">PostalCode</label>
+                        <input type="text" class="form-control" id="" name="c11">
+                      </div>
+                    </div>
+                    <div class="col-md-5">      
                       <div class="form-group">
                         <label for="">Country</label>
-                        <input type="text" class="form-control" id="">
+                        <input type="text" class="form-control" id="" name="c12">
                       </div>
-                </div>
-                <div class="col-md-5">      
+                    </div>
+                    <div class="col-md-5">      
                       <div class="form-group">
-                        <label for="">Postal Code</label>
-                        <input type="text" class="form-control" id="">
+                        <label for="">Home Phone</label>
+                        <input type="text" class="form-control" id="" name="c13">
                       </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-10">
-                  <button type="submit" class="btn btn-success pull-right">ADD</button>
-                </div>  
-              </div>            
+                    </div>
+                    <div class="col-md-5">      
+                      <div class="form-group">
+                        <label for="">Extension</label>
+                        <input type="text" class="form-control" id="" name="c14">
+                      </div>
+                    </div>
+                    <div class="col-md-5">      
+                      <div class="form-group">
+                        <label for="">Photo</label>
+                        <input type="text" class="form-control" id="" name="c15">
+                      </div>
+                    </div>
+                    <div class="col-md-5">      
+                      <div class="form-group">
+                        <label for="">Notes</label>
+                        <input type="text" class="form-control" id="" name="c16">
+                      </div>
+                    </div>
+                    <div class="col-md-5">      
+                      <div class="form-group">
+                        <label for="">ReportsTo</label>
+                        <input type="text" class="form-control" id="" name="c17">
+                      </div>
+                    </div>
+                    <div class="col-md-5">      
+                      <div class="form-group">
+                        <label for="">PhotoPath</label>
+                        <input type="text" class="form-control" id="" name="c18">
+                      </div>
+                    </div>
+                    <div class="col-md-5">      
+                      <div class="form-group">
+                        <label for="">Salary</label>
+                        <input type="text" class="form-control" id="" name="c19">
+                      </div>
+                    </div>
+                  <div class="row">
+                    <div class="col-md-10">
+                    <button type="submit" class="btn btn-success pull-right">ADD</button>
+                    </div>  
+                  </div> 
+                </form>           
               <hr>
             </div>
 
