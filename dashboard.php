@@ -14,7 +14,7 @@ require("config.php");
 
 //product search
 if (!empty($_POST['product_name'])){
-$product_name = mysql_real_escape_string($_POST['product_name']);
+$product_name = mysqli_real_escape_string($_POST['product_name'],$product_name);
 
 $product_result = mysqli_query($con,"SELECT * FROM products where ProductName='$product_name' AND Discontinued=0;");
 if ($product_result->num_rows > 0) {
@@ -70,7 +70,7 @@ mysqli_free_result($cat_result);
 
 //buy product search
 if (!empty($_POST['buy_product_name'])){
-$buy_product_name = mysql_real_escape_string($_POST['buy_product_name']);
+$buy_product_name = mysqli_real_escape_string($_POST['buy_product_name'],$buy_product_name);
 
 $buy_product_result = mysqli_query($con,"SELECT * FROM products where ProductName='$buy_product_name' AND Discontinued=0;");
 unset($_SESSION[search_p_ID]);
