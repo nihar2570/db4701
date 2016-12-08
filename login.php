@@ -10,10 +10,10 @@ $result = mysqli_query($con,"SELECT * FROM Customers WHERE CustomerID='$username
 if(mysqli_num_rows($result)!=0)
 {
 	//sets some equivalent to global variiables
-	$_SESSION["username"] = $username;
+	$_SESSION['username'] = $username;
 
 	//go to dashboard
-	header("Location:dashboard.html");
+	header("Location:dashboard2.php");
     exit();
 
 	}

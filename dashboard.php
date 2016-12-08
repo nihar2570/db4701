@@ -14,7 +14,7 @@ require("config.php");
 
 //product search
 if (!empty($_POST['product_name'])){
-$product_name = mysqli_real_escape_string($_POST['product_name'],$product_name);
+$product_name = mysql_real_escape_string($_POST['product_name']);
 
 $product_result = mysqli_query($con,"SELECT * FROM products where ProductName='$product_name' AND Discontinued=0;");
 if ($product_result->num_rows > 0) {
@@ -70,26 +70,31 @@ mysqli_free_result($cat_result);
 
 //buy product search
 if (!empty($_POST['buy_product_name'])){
-$buy_product_name = mysqli_real_escape_string($_POST['buy_product_name'],$buy_product_name);
+$buy_product_name = mysql_real_escape_string($_POST['buy_product_name']);
 
 $buy_product_result = mysqli_query($con,"SELECT * FROM products where ProductName='$buy_product_name' AND Discontinued=0;");
-unset($_SESSION[search_p_ID]);
+ if(isset($_SESSION['search_p_ID'])){
+     unset($_SESSION['search_p_ID']);
+    }
 if ($buy_product_result->num_rows > 0) {
      while($row = $buy_product_result->fetch_assoc()) {
-         mysqli_query($con,"SELECT * FROM products where ProductName='$buy_product_name' AND Discontinued=0;");
-
-         $_SESSION[search_p_ID] = $row["ProductID"];
+         $_SESSION['search_p_ID'] = $row["ProductID"];
      }
      echo "</table>";
 } else {
      echo "0 results";
 }
 
-if (!empty($_SESSION[search_p_ID])){
-mysqli_query($con,"INSERT INTO shoppingcart (productID) values ($_SESSION[search_p_ID])");
+if (isset($_SESSION['search_p_ID'])){
+    $my_name = $_SESSION['username'];
+    $arrlength = count($_SESSION['search_p_ID']);
+
+    for($x = 0; $x < $arrlength; $x++) {
+        mysqli_query($con,"INSERT INTO shoppingcart (productID, cusID) values ({$_SESSION['search_p_ID'][$x]}, '{$_SESSION['username']}')");
+    }
 }
 mysqli_free_result($buy_product_result);
-header("Location:shoppingcart.php");
+header("Location:dashboard2.php");
 exit();
 }
 
@@ -98,27 +103,57 @@ if (!empty($_POST['buy_cat_name'])){
 $buy_cat_name = mysql_real_escape_string($_POST['buy_cat_name']);
 
 $buy_cat_result = mysqli_query($con,"SELECT * FROM Products JOIN Categories ON Products.CategoryID = Categories.CategoryID where Categories.CategoryName = '$buy_cat_name' AND Discontinued = 0;");
+    if(isset($_SESSION['search_p_ID'])){
+     unset($_SESSION['search_p_ID']);
+    }
 if ($buy_cat_result->num_rows > 0) {
-     unset($_SESSION["search_p_name"]);
-     unset($_SESSION["search_p_quantity"]);
-     unset($_SESSION["search_p_price"]);
-     unset($_SESSION["search_p_in_stock"]);
     while($row = $buy_cat_result->fetch_assoc()) {
-        $_SESSION["search_p_name"][] = $row["ProductName"];
-        $_SESSION["search_p_quantity"][] = $row["QuantityPerUnit"];
-        $_SESSION["search_p_price"][] = $row["UnitPrice"];
-        $_SESSION["search_p_in_stock"][] = $row["UnitsInStock"];
+        $_SESSION['search_p_ID'][] = $row["ProductID"];
      }
-        print_r(($_SESSION["search_p_name"][2]));
-        print_r($_SESSION["search_p_in_stock"]);
-        printf($_SESSION["username"]);
      
 } else {
      echo "0 results";
 }
+if (isset($_SESSION['search_p_ID'])){
+    $arrlength = count($_SESSION['search_p_ID']);
+
+    for($x = 0; $x < $arrlength; $x++) {
+        mysqli_query($con,"INSERT INTO shoppingcart (productID, cusID) values ({$_SESSION['search_p_ID'][$x]}, '{$_SESSION['username']}')");
+    }
+}
+
 mysqli_free_result($buy_cat_result);
-//header("Location:dashboard.html");
-//exit();
+header("Location:dashboard2.php");
+exit();
+}
+
+//buy supplier search
+if (!empty($_POST['buy_supplier_name'])){
+$buy_supplier_name = mysql_real_escape_string($_POST['buy_supplier_name']);
+
+$buy_supplier_result = mysqli_query($con,"SELECT * FROM Products JOIN Company ON Products.SupplierID = Company.CompanyID where CompanyName = '$buy_supplier_name' AND Discontinued = 0;");
+    if(isset($_SESSION['search_p_ID'])){
+     unset($_SESSION['search_p_ID']);
+    }
+if ($buy_supplier_result->num_rows > 0) {
+    while($row = $buy_supplier_result->fetch_assoc()) {
+        $_SESSION['search_p_ID'][] = $row["ProductID"];
+     }
+     
+} else {
+     echo "0 results";
+}
+if (isset($_SESSION['search_p_ID'])){
+    $arrlength = count($_SESSION['search_p_ID']);
+
+    for($x = 0; $x < $arrlength; $x++) {
+        mysqli_query($con,"INSERT INTO shoppingcart (productID, cusID) values ({$_SESSION['search_p_ID'][$x]}, '{$_SESSION['username']}')");
+    }
+}
+
+mysqli_free_result($buy_supplier_result);
+header("Location:dashboard2.php");
+exit();
 }
 
 mysqli_close($con);
