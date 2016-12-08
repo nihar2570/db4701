@@ -163,6 +163,24 @@ header("Location:dashboard2.php");
 exit();
 }
 
+if (!empty($_POST['supplier_name'])){
+$supplier_name = mysql_real_escape_string($_POST['supplier_name']);
+
+$supplier_result = mysqli_query($con,"SELECT * FROM Products JOIN Company ON Products.SupplierID = Company.CompanyID where CompanyName = '$supplier_name' AND Discontinued = 0;");
+if ($supplier_result->num_rows > 0) {
+     echo "<table><tr><th>Product Name</th><th>Quantity Per Unit</th><th>Unit Price</th><th>Units In Stock</th><th>Company Name</th></tr>";
+     // output data of each row
+     while($row = $supplier_result->fetch_assoc()) {
+         echo "<tr><td>" . $row["ProductName"]. "</td><td>" . $row["QuantityPerUnit"]. "</td><td>" . $row["UnitPrice"]. "</td><td>" . $row["UnitsInStock"]. "</td><td>" . $row["CompanyName"]. "</td></tr>";
+     }
+     echo "</table>";
+} else {
+     echo "0 results";
+}
+
+mysqli_free_result($supplier_result);
+}
+
 mysqli_close($con);
 ?>
 
