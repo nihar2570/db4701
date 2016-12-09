@@ -132,6 +132,7 @@ require("config.php");
                 </div>
                 </div><!--row ends-->
           		</div>
+              <a href="dashboard2.php"><button type="submit" class="btn btn-default">Back</button></a>
 
               </body>
 </html>
