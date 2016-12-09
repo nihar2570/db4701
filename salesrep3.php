@@ -31,9 +31,10 @@
         $c3 = ($_POST['uis']);
         $c4 = ($_POST['cmpname']);
 
-        $qry = mysqli_query($con," SELECT DISTINCT ProductName, CategoryName, UnitsInStock, CompanyName
-                                    FROM products JOIN suppliers JOIN categories JOIN CompanyName
-                                    WHERE ProductName='$c1' AND CategoryName='$c2' AND UnitsInStock='$c3' AND CompanyName='$c4'");
+        $qry = mysqli_query($con," SELECT DISTINCT ProductName, CategoryName, CompanyName, UnitsInStock
+                                  FROM northwind.products JOIN northwind.categories JOIN northwind.company
+                                  WHERE ProductName='$c1' OR CategoryName='$c2' OR UnitsInStock='$c4' OR
+                                  CompanyName='$c3'");
         
           if(mysqli_num_rows($qry)!=0){
               while($row = $qry->fetch_assoc()) {

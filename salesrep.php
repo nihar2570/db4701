@@ -107,29 +107,7 @@
             echo "no active orders";
           }
         }
-
-        if(isset($_POST['country']) || isset($_POST['region']) || isset($_POST['city'])){
-        $country = ($_POST['country']);
-        $region = ($_POST['region']);
-        $city = ($_POST['city']);
-
-        $qry = mysqli_query($con,"");
-          if(mysqli_num_rows($qry)!=0){
-              while($row = $qry->fetch_assoc()) {
-               echo"
-                   <tbody>
-                     <tr>
-                       <td>".$row['OrderID']."</td>
-                       <td>".$row['CustomerID']."</td>
-                       <td>".$row['EmployeeID']."</td>
-                       <td>".$row['OrderDate']."</td>
-                       <td>".$row['ShipVia']."</td>           
-                      </tr>                                   
-                   </tbody>
-                  </table> ";
-              }
-          }
-        }
+      
 
         
   ?>

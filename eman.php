@@ -32,7 +32,7 @@
     $s = ($_POST['c19']);
 
     $qry = "INSERT INTO employees (EmployeeID, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Photo, Notes, ReportsTo, PhotoPath, Salary) 
-    VALUES ('$a','$b','$c','$d','$e','$f','$g','$h','$i','$j','$k','$l','$m','$n','$o','$p','NULL','NULL','NULL')";
+    VALUES ('$a','$b','$c','$d','$e','$f','$g','$h','$i','$j','$k','$l','$m','$n','$o','$p','$q','$r','$s')";
 
     if ($con->query($qry) === TRUE) {
       echo "New record created successfully";

@@ -14,10 +14,10 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>CustomerID</th>
-                        <th>ContactName</th>
-                        <th>CompanyName</th>
-                        <th>Phone</th>                                       
+                        <th>ShipAddrID</th>
+                        <th>ShipmentsID</th>
+                        <th>RequiredDate</th>
+                        <th>ShippedDate</th>                                       
                     </tr>
                 </thead>
         </div>
@@ -25,31 +25,26 @@
 
   <?php
       require("config.php");
-        if(isset($_POST['c1']) || isset($_POST['c2']) || isset($_POST['c3']) || isset($_POST['c4'])){
 
-        if(isset($_POST['c1'])){
-          $c1 = ($_POST['c1']);
-        }
+        if(isset($_POST['country']) || isset($_POST['region']) || isset($_POST['city'])){
+        $country = ($_POST['country']);
+        $region = ($_POST['region']);
+        $city = ($_POST['city']);
 
-        $c2 = ($_POST['c2']);
-        $c3 = ($_POST['c3']);
-        $c4 = ($_POST['c4']);
-
-        $qry = mysqli_query($con," SELECT * FROM customers WHERE ContactName='$c1'
-                                    OR City='$c2' OR Region='$c3' OR Country='$c4'");
-        
+        $qry = mysqli_query($con,"SELECT * FROM northwind.shipaddresses
+                                    WHERE ShipCountry='$country' OR ShipRegion='$region' OR ShipCity='$city'");
           if(mysqli_num_rows($qry)!=0){
               while($row = $qry->fetch_assoc()) {
                echo"
                    <tbody>
                      <tr>
-                       <td>".$row['CustomerID']."</td>
-                       <td>".$row['ContactName']."</td>
-                       <td>".$row['CompanyName']."</td>
-                       <td>".$row['Phone']."</td>           
+                       <td>".$row['ShipAddrID']."</td>
+                       <td>".$row['ShipmentsID']."</td>
+                       <td>".$row['RequiredDate']."</td>
+                       <td>".$row['ShippedDate']."</td>       
                       </tr>                                   
                    </tbody>
-                  ";
+                   ";
               }
           }
         } 

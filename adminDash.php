@@ -32,7 +32,7 @@ require("config.php");
                     <div class="row">
                         <div class="span5">
                             <table class="table table-striped">
-                            add link to order status and content of each order
+                            ACTIVE ORDERS
                             <thead>
                                 <tr>
                                     <th>Order ID</th>
@@ -326,24 +326,27 @@ require("config.php");
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-md-5"> 
+                    <div class="col-lg-12">
                         <div class="form-group">
                           Year:
                           <input type="text" class="form-control" name="year" placeholder="eg:1996">
-                        </div>
+                        </div> 
                         <div class="form-group">
                           Month:
                           <input type="text" class="form-control" name="month" placeholder="eg:5">
-                        </div>
+                        </div>     
                         <div class="form-group">
                           Day:
                           <input type="text" class="form-control" name="day" placeholder="eg:13">
                         </div>
+                        <button type="submit" class="btn btn-primary">GO</button>
+                        </form>
                     </div>
-                </div>
+                 </div>
                 <hr>
                 <div class = "row">  
                     <div class="col-md-5"> 
+                      <form class="form" method = "POST" action="salesrep2.php">
                         <div class="form-group">
                           Country:
                           <input type="text" class="form-control" name="country" placeholder="eg:France">
@@ -431,7 +434,50 @@ require("config.php");
                   customer basis which includes data such as the number of customer(s) per employee and
                   sales of those customer(s) by employee also by month or durational period (start and end date
                 </p>
-                
+                <div class = "row">
+                  <div class="col-lg-12">
+                    <h3>Search by:</h3>
+                    <hr>
+                      <form class="navbar-form navbar-left" method = "POST" role="search" action="emprep.php">
+                        <div class="form-group">
+                          First Name:
+                          <input type="text" class="form-control" name="fname" placeholder="eg:Nancy">
+                        </div>
+                        <button type="submit" class="btn btn-primary">GO</button>
+                    </div>
+                  </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-5"> 
+                        <div class="form-group">
+                          Year:
+                          <input type="text" class="form-control" name="year" placeholder="eg:1996">
+                        </div>
+                        <div class="form-group">
+                          Month:
+                          <input type="text" class="form-control" name="month" placeholder="eg:5">
+                        </div>
+                        <div class="form-group">
+                          Day:
+                          <input type="text" class="form-control" name="day" placeholder="eg:13">
+                        </div>
+                        <button type="submit" class="btn btn-primary">GO</button>
+                    </div>
+                </div>
+                <div class = "row">
+                  <div class="col-md-5">
+                    <hr>
+                        <div class="form-group">
+                          FROM:
+                          <input type="text" class="form-control" name="fromdate" placeholder="eg:1996-07-04 00:00:00">
+                        </div>
+                        <div class="form-group">
+                          TO:
+                          <input type="text" class="form-control" name="todate" placeholder="eg:1996-07-04 00:00:00">
+                        </div>
+                        <button type="submit" class="btn btn-primary">GO</button>
+                  </div>
+                </div></form>
             </div>
 
             <div class="tab-pane" id="7a">
@@ -542,7 +588,7 @@ require("config.php");
                   <div class="col-lg-12">
                     <h4>Search by years: </h4>
                     <hr>
-                      <form class="form" method= "POST" action="cusrep3.php">
+                      <form class="form" method= "POST" action="salesrep.php">
                         <div class="form-group">
                           FROM:
                           <input type="text" class="form-control" name="fromdate" placeholder="eg:1996-07-04 00:00:00">
